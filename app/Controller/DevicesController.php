@@ -15,6 +15,36 @@ class DevicesController extends AppController {
  */
 	public $components = array('Paginator');
 
+    public function api_username(){
+        $this->autoRender = $this->autoLayout = false;
+        if ($this->request->is('post')){
+            $response = array();
+            $deviceID = $this->request->data['deviceID'];
+            $result = $this->Device->findAllByDeviceId($deviceID);
+            if(!empty($result)) {
+                $response['userId'] = $result[0]['User']['user_id'];
+            } else {
+                $userId = $this->hashSSHA($deviceID);
+                $this->Device->create();
+                if($this->Device->saveAll( array(
+                    'device_id' => $deviceID,
+                    'user_id' => $userId
+                ))) {
+                    $response["userId"] = $userId;
+                } else {
+                    $response["userId"] = 'error';
+                }
+            }
+            echo json_encode($response,  JSON_UNESCAPED_UNICODE);
+        };
+    }
+
+    public function hashSSHA($deviceID) {
+        $salt = sha1($deviceID);
+        $salt = substr($salt, 0, 6);
+        return $salt;
+    }
+
 /**
  * index method
  *
