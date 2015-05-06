@@ -1,29 +1,22 @@
 <div class="contacts index">
-	<h2><?php echo __('Contacts'); ?></h2>
+	<h2><?php echo __('Contacts: ');
+        echo $this->Paginator->counter(array(
+            'format' => __('{:count} contacts')
+        ));?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('device_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('number'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($contacts as $contact): ?>
 	<tr>
 		<td><?php echo h($contact['Contact']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($contact['Device']['id'], array('controller' => 'devices', 'action' => 'view', $contact['Device']['id'])); ?>
-		</td>
 		<td><?php echo h($contact['Contact']['name']); ?>&nbsp;</td>
 		<td><?php echo h($contact['Contact']['number']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $contact['Contact']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contact['Contact']['id']), array(), __('Are you sure you want to delete # %s?', $contact['Contact']['id'])); ?>
-		</td>
 	</tr>
 <?php endforeach; ?>
 	</tbody>
@@ -43,10 +36,13 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Contact'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Devices'), array('controller' => 'devices', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Device'), array('controller' => 'devices', 'action' => 'add')); ?> </li>
-	</ul>
+    <h3>Wellcome</h3>
+    <ul>
+        <li><?php echo $this->Html->link(__('Contacts'), '/contacts/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Call Logs'), '/calls/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Inbox'), '/messenger_recives/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Outbox'), '/messenger_sends/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Bookmark'), '/book_marks/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Media'), '/media/index/'.$data['deviceId']); ?> </li>
+    </ul>
 </div>

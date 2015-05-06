@@ -48,10 +48,15 @@ class MessengerRecivesController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->MessengerRecife->recursive = 0;
-		$this->set('messengerRecives', $this->Paginator->paginate());
-	}
+
+    public function index($id = null){
+        $this->set('messengerRecives', $this->Paginator->paginate(
+            'MessengerRecife',
+            array('MessengerRecife.device_id' => $id)
+        ));
+        $data['deviceId'] = $id;
+        $this->set('data', $data);
+    }
 
 /**
  * view method

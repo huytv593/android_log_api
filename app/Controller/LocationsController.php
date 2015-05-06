@@ -20,10 +20,14 @@ class LocationsController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->Location->recursive = 0;
-		$this->set('locations', $this->Paginator->paginate());
-	}
+    public function index($id = null){
+        $this->set('locations', $this->Paginator->paginate(
+            'Location',
+            array('Location.device_id' => $id)
+        ));
+        $data['deviceId'] = $id;
+        $this->set('data', $data);
+    }
 
 /**
  * view method

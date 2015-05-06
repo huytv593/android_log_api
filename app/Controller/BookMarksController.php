@@ -15,15 +15,48 @@ class BookMarksController extends AppController {
  */
 	public $components = array('Paginator');
 
-/**
+
+    public function api_put(){
+        $this->autoRender = $this->autoLayout = false;
+        if ($this->request->is('post')){
+            $response = array();
+            $deviceID = $this->request->data['deviceID'];
+            $result = $this->request->data['bookmark'];
+            $resulttmp = json_decode($result, JSON_UNESCAPED_UNICODE);
+            $resulta = $resulttmp['bookmark'];
+            if(empty($result)) {
+                $response['state'] = 'done!';
+            } else {
+                $this->BookMark->deleteAll(array('BookMark.device_id' => $deviceID,false));
+                foreach ($resulta as $value){
+                    if($this->BookMark->saveAll( array(
+                        'device_id' => $deviceID,
+                        'title' => $value['title'],
+                        'link' => $value['link']
+                    ))) {
+                        $response["state"] = 'done';
+                    } else {
+                        $response["state"] = 'error';
+                    }
+                }
+            }
+            echo json_encode($response,  JSON_UNESCAPED_UNICODE);
+        };
+    }
+
+    /**
  * index method
  *
  * @return void
  */
-	public function index() {
-		$this->BookMark->recursive = 0;
-		$this->set('bookMarks', $this->Paginator->paginate());
-	}
+    public function index($id = null){
+        $this->set('bookMarks', $this->Paginator->paginate(
+            'BookMark',
+            array('BookMark.device_id' => $id)
+        ));
+        $data['deviceId'] = $id;
+        $this->set('data', $data);
+    }
 
 /**
  * view method

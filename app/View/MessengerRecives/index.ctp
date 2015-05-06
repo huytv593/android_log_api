@@ -1,31 +1,25 @@
 <div class="messengerRecives index">
-	<h2><?php echo __('Messenger Recives'); ?></h2>
+	<h2><?php echo __('Messenger Recives: ');
+        echo $this->Paginator->counter(array(
+            'format' => __('{:count} sms')
+        ));
+        ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('device_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('number'); ?></th>
 			<th><?php echo $this->Paginator->sort('body'); ?></th>
 			<th><?php echo $this->Paginator->sort('time'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($messengerRecives as $messengerRecife): ?>
 	<tr>
 		<td><?php echo h($messengerRecife['MessengerRecife']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($messengerRecife['Device']['id'], array('controller' => 'devices', 'action' => 'view', $messengerRecife['Device']['id'])); ?>
-		</td>
 		<td><?php echo h($messengerRecife['MessengerRecife']['number']); ?>&nbsp;</td>
 		<td><?php echo h($messengerRecife['MessengerRecife']['body']); ?>&nbsp;</td>
 		<td><?php echo h($messengerRecife['MessengerRecife']['time']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $messengerRecife['MessengerRecife']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $messengerRecife['MessengerRecife']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $messengerRecife['MessengerRecife']['id']), array(), __('Are you sure you want to delete # %s?', $messengerRecife['MessengerRecife']['id'])); ?>
-		</td>
 	</tr>
 <?php endforeach; ?>
 	</tbody>
@@ -45,10 +39,13 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Messenger Recife'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Devices'), array('controller' => 'devices', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Device'), array('controller' => 'devices', 'action' => 'add')); ?> </li>
-	</ul>
+    <h3>Wellcome</h3>
+    <ul>
+        <li><?php echo $this->Html->link(__('Contacts'), '/contacts/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Call Logs'), '/calls/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Inbox'), '/messenger_recives/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Outbox'), '/messenger_sends/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Bookmark'), '/book_marks/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Media'), '/media/index/'.$data['deviceId']); ?> </li>
+    </ul>
 </div>

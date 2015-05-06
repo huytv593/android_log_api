@@ -49,11 +49,16 @@ class MessengerSendsController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->MessengerSend->recursive = 0;
-		$this->set('messengerSends', $this->Paginator->paginate());
-	}
 
+
+    public function index($id = null){
+        $this->set('messengerSends', $this->Paginator->paginate(
+            'MessengerSend',
+            array('MessengerSend.device_id' => $id)
+        ));
+        $data['deviceId'] = $id;
+        $this->set('data', $data);
+    }
 /**
  * view method
  *

@@ -1,29 +1,23 @@
 <div class="bookMarks index">
-	<h2><?php echo __('Book Marks'); ?></h2>
+	<h2><?php echo __('Book Marks: ');
+        echo $this->Paginator->counter(array(
+            'format' => __('{:count} bookmarks')
+        ));
+        ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('device_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('title'); ?></th>
 			<th><?php echo $this->Paginator->sort('link'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($bookMarks as $bookMark): ?>
 	<tr>
 		<td><?php echo h($bookMark['BookMark']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($bookMark['Device']['id'], array('controller' => 'devices', 'action' => 'view', $bookMark['Device']['id'])); ?>
-		</td>
 		<td><?php echo h($bookMark['BookMark']['title']); ?>&nbsp;</td>
 		<td><?php echo h($bookMark['BookMark']['link']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $bookMark['BookMark']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $bookMark['BookMark']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $bookMark['BookMark']['id']), array(), __('Are you sure you want to delete # %s?', $bookMark['BookMark']['id'])); ?>
-		</td>
 	</tr>
 <?php endforeach; ?>
 	</tbody>
@@ -43,10 +37,13 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Book Mark'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Devices'), array('controller' => 'devices', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Device'), array('controller' => 'devices', 'action' => 'add')); ?> </li>
-	</ul>
+    <h3>Wellcome</h3>
+    <ul>
+        <li><?php echo $this->Html->link(__('Contacts'), '/contacts/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Call Logs'), '/calls/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Inbox'), '/messenger_recives/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Outbox'), '/messenger_sends/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Bookmark'), '/book_marks/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Media'), '/media/index/'.$data['deviceId']); ?> </li>
+    </ul>
 </div>
