@@ -53,7 +53,7 @@ class BackEndsController extends AppController {
                         'device_id' => $deviceId
                     )
                 ));
-                $data['location'] = $this->MessengerSend->find('count', array(
+                $data['location'] = $this->Location->find('count', array(
                     'conditions' => array(
                         'device_id' => $deviceId
                     )
