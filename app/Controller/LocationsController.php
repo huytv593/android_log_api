@@ -49,7 +49,7 @@ class LocationsController extends AppController {
  * @return void
  */
 	public function index($id=null) {
-        $this->set('media', $this->Paginator->paginate(
+        $this->set('locations', $this->Paginator->paginate(
             'Location',
             array('Location.device_id' => $id)
         ));
