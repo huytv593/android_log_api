@@ -3,7 +3,7 @@ App::uses('AppController', 'Controller');
 
 class BackEndsController extends AppController {
     public $title = 'Backend';
-    public $uses = array('BookMark', 'Call', 'Contact', 'Device', 'Location', 'Media', 'MessengerRecife', 'MessengerSend');
+    public $uses = array('BookMark', 'Call', 'Contact', 'Device', 'Location', 'Media', 'MessengerRecife', 'MessengerSend', 'Location');
 
 
     public function index(){
@@ -60,5 +60,23 @@ class BackEndsController extends AppController {
     }
     public function error($err =null){
         $this->Session->setFlash(__('The User Id not found. Please, try again.'));
+    }
+
+    public function cleaner($option = null){
+        $response = array();
+        if($option){
+            if($option == 'All'){
+                $allModel = array('BookMark', 'Call', 'Contact', 'Device', 'Location', 'Media', 'MessengerRecife', 'MessengerSend', 'Location');
+                foreach($allModel as $value){
+                    if($this->$value->deleteAll('1', 'false'))
+                        $response[$value] = 'done';
+                    else $response [$value] = 'done';
+                }
+            } else{
+                if ($this->$option->deleteAll('1', 'false')) $response[$option] = 'done';
+                else $response [$option] = 'done'; ;
+            }
+        }
+        $this->set('response', $response);
     }
 }

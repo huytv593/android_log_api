@@ -85,6 +85,7 @@ class AppSchema extends CakeSchema
         'device_id' => array('type' => 'string', 'null' => false, 'length' => 23, 'unique' => true),
         'latt' => array('type' => 'string', 'null' => true),
         'longt' => array('type' => 'string', 'null' => true),
+        'time' => array('type' => 'string', 'null' => true),
         'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci')
     );
 }

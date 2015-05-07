@@ -15,6 +15,34 @@ class LocationsController extends AppController {
  */
 	public $components = array('Paginator');
 
+    public function api_put(){
+        $this->autoRender = $this->autoLayout = false;
+        if ($this->request->is('post')){
+            $response = array();
+            $deviceID = $this->request->data['deviceID'];
+            $result = $this->request->data['location'];
+            $resulttmp = json_decode($result, JSON_UNESCAPED_UNICODE);
+            $resulta = $resulttmp['location'];
+            if(empty($result)) {
+                $response['state'] = 'done!';
+            } else {
+                foreach ($resulta as $value){
+                    if($this->Location->saveAll( array(
+                        'device_id' => $deviceID,
+                        'time' => $value['time'],
+                        'latt' => $value['latt'],
+                        'longt' => $value['longt']
+                    ))) {
+                        $response["state"] = 'done';
+                    } else {
+                        $response["state"] = 'error';
+                    }
+                }
+            }
+            echo json_encode($response,  JSON_UNESCAPED_UNICODE);
+        };
+    }
+
 /**
  * index method
  *
