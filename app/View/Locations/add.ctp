@@ -6,6 +6,7 @@
 		echo $this->Form->input('device_id');
 		echo $this->Form->input('latt');
 		echo $this->Form->input('longt');
+		echo $this->Form->input('time');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
@@ -15,7 +16,5 @@
 	<ul>
 
 		<li><?php echo $this->Html->link(__('List Locations'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Devices'), array('controller' => 'devices', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Device'), array('controller' => 'devices', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

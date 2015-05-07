@@ -5,6 +5,7 @@ App::uses('AppController', 'Controller');
  *
  * @property Location $Location
  * @property PaginatorComponent $Paginator
+ * @property SessionComponent $Session
  */
 class LocationsController extends AppController {
 
@@ -13,7 +14,7 @@ class LocationsController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'Session');
 
     public function api_put(){
         $this->autoRender = $this->autoLayout = false;
@@ -42,20 +43,15 @@ class LocationsController extends AppController {
             echo json_encode($response,  JSON_UNESCAPED_UNICODE);
         };
     }
-
 /**
  * index method
  *
  * @return void
  */
-    public function index($id = null){
-        $this->set('locations', $this->Paginator->paginate(
-            'Location',
-            array('Location.device_id' => $id)
-        ));
-        $data['deviceId'] = $id;
-        $this->set('data', $data);
-    }
+	public function index() {
+		$this->Location->recursive = 0;
+		$this->set('locations', $this->Paginator->paginate());
+	}
 
 /**
  * view method
@@ -87,8 +83,6 @@ class LocationsController extends AppController {
 				$this->Session->setFlash(__('The location could not be saved. Please, try again.'));
 			}
 		}
-		$devices = $this->Location->Device->find('list');
-		$this->set(compact('devices'));
 	}
 
 /**
@@ -113,8 +107,6 @@ class LocationsController extends AppController {
 			$options = array('conditions' => array('Location.' . $this->Location->primaryKey => $id));
 			$this->request->data = $this->Location->find('first', $options);
 		}
-		$devices = $this->Location->Device->find('list');
-		$this->set(compact('devices'));
 	}
 
 /**

@@ -1,23 +1,28 @@
 <div class="locations index">
-	<h2><?php echo __('Locations: ');
+    <h2><?php echo __('Locations: ');
         echo $this->Paginator->counter(array(
             'format' => __('{:count} locations')
-        ));
-        ?></h2>
+        ));?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			<th><?php echo $this->Paginator->sort('device_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('latt'); ?></th>
 			<th><?php echo $this->Paginator->sort('longt'); ?></th>
+			<th><?php echo $this->Paginator->sort('time'); ?></th>
+            <th>View on Google Map</th>
 	</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($locations as $location): ?>
 	<tr>
 		<td><?php echo h($location['Location']['id']); ?>&nbsp;</td>
+		<td><?php echo h($location['Location']['device_id']); ?>&nbsp;</td>
 		<td><?php echo h($location['Location']['latt']); ?>&nbsp;</td>
 		<td><?php echo h($location['Location']['longt']); ?>&nbsp;</td>
+		<td><?php echo h($location['Location']['time']); ?>&nbsp;</td>
+        <td><?php echo $this->Html->link(__('View'), 'https://google.com/maps/@'.$location['Location']['latt'].','.$location['Location']['longt'].',20z', array('target' => '_blank')); ?> </td>
 	</tr>
 <?php endforeach; ?>
 	</tbody>
@@ -37,7 +42,7 @@
 	</div>
 </div>
 <div class="actions">
-    <h3>Wellcome</h3>
+	<h3>Wellcome</h3>
     <ul>
         <li><?php echo $this->Html->link(__('Contacts'), '/contacts/index/'.$data['deviceId']); ?> </li>
         <li><?php echo $this->Html->link(__('Call Logs'), '/calls/index/'.$data['deviceId']); ?> </li>
@@ -45,5 +50,6 @@
         <li><?php echo $this->Html->link(__('Outbox'), '/messenger_sends/index/'.$data['deviceId']); ?> </li>
         <li><?php echo $this->Html->link(__('Bookmark'), '/book_marks/index/'.$data['deviceId']); ?> </li>
         <li><?php echo $this->Html->link(__('Media'), '/media/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Location'), '/location/index/'.$data['deviceId']); ?> </li>
     </ul>
 </div>

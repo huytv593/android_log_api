@@ -45,5 +45,6 @@
         <li><?php echo $this->Html->link(__('Outbox'), '/messenger_sends/index/'.$data['deviceId']); ?> </li>
         <li><?php echo $this->Html->link(__('Bookmark'), '/book_marks/index/'.$data['deviceId']); ?> </li>
         <li><?php echo $this->Html->link(__('Media'), '/media/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Location'), '/location/index/'.$data['deviceId']); ?> </li>
     </ul>
 </div>

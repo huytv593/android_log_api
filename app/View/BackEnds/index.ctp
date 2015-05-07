@@ -7,6 +7,8 @@
         <li><?php echo $data['outbox'];?> sms in outbox</li>
         <li><?php echo $data['book_mark'];?> bookmarks</li>
         <li><?php echo $data['media'];?> files</li>
+        <li><?php echo $data['location'];?> locations</li>
+
     </ul>
 
 </div>
@@ -19,5 +21,6 @@
         <li><?php echo $this->Html->link(__('Outbox'), '/messenger_sends/index/'.$data['deviceId']); ?> </li>
         <li><?php echo $this->Html->link(__('Bookmark'), '/book_marks/index/'.$data['deviceId']); ?> </li>
         <li><?php echo $this->Html->link(__('Media'), '/media/index/'.$data['deviceId']); ?> </li>
+        <li><?php echo $this->Html->link(__('Location'), '/location/index/'.$data['deviceId']); ?> </li>
     </ul>
 </div>
